@@ -61,6 +61,7 @@ export default (mongo: any) => {
                         //VERIFICAR TOKEN
                         if(res.ok){
                             console.log(await tokenHelper.verify(res.token,payload.apiKey));
+                            io.emit(`jwToken`,res.token);
                         }
 
                         //VERIFICAR EMAIL
@@ -70,6 +71,7 @@ export default (mongo: any) => {
                 usersList.push(payload)
                 // Retransmitir la variable payload  a todos los clientes conectados
                 io.emit('broadcast-message', usersList);
+                
             });
         },
         disconnect: (socket: Socket, io:any) => {
@@ -79,13 +81,12 @@ export default (mongo: any) => {
                 await mongo.db.collection('sockets')
                     .remove({email: payload.email})
                     .then((result: any) => {
-                        //console.log(result)
+                        console.log(result)
                     })
                     .catch((error: any) => console.log(error));
-
                     
-                    //usersList.splice(payload.email);
-                    //io.emit('broadcast-message', usersList);
+                    usersList.splice(payload);
+                    io.emit('log-out', usersList);
             });
         }
     }

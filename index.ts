@@ -21,7 +21,7 @@ const tokenHelper = TokenHelper(ENV, mongo);
         app.use(express.json());
         app.use(compression());
         let whitelist = [
-            'http://localhost:4200'
+            ENV.ANGULAR.URL
         ];
         app.use(cors({
           origin: (origin, callback) => {
@@ -161,26 +161,27 @@ const tokenHelper = TokenHelper(ENV, mongo);
                         return { 
                             ok: false, 
                             code: 404,
-                            msg: `Lo sentimos, el usuario ${email} no se ha registrado aún o bien no ha habilitado su acceso`
+                            msg: `Lo sentimos, el usuario ${email} no se ha deslogeado de la base de datos`
                         }
                     }
                     return {
                         ok: true,
                         code: 200,
-                        msg: `Se elimino el socket de la cuenta: ${email}`,
+                        msg: `Se finalizo la sesion de la cuenta: ${email}`,
                         result
                     }
                 })
                 .catch((error: any) => {
+                    console.log('ERROR LOGOUT =========>', error);
                     return { 
                         ok: false,
                         code: 500, 
-                        msg: `Ocurrio un error no contemplado al intentar eliminar el socket ${email}`,
+                        msg: `Ocurrio un error no contemplado al intentar cerrar sesion ${email}`,
                         error
                     }
+                    
                 });
-
-                console.log('ERROR LOGIN =========>', response);
+                
             
             if (response.ok == false) {
                 res.status(response.code).json(response);

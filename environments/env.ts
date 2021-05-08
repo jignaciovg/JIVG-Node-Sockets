@@ -2,11 +2,14 @@ export default {
     API: {
         PORT: 3003
     },
+    ANGULAR:{
+        URL: 'http://localhost:4200'
+    },
     MONGODB: {
-        HOST: 'localhost',
+        HOST: '192.168.1.181',
         PORT: '27017',
-        USER_NAME: '',
-        USER_PASSWORD: '',
+        USER_NAME: 'dba-root',
+        USER_PASSWORD: 'mongoadmin',
         DATABASE: 'dbsockets'
     },
     TOKEN: {
