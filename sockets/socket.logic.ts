@@ -19,7 +19,7 @@ export default (mongo: any) => {
             await mongo.db.collection('sockets')
                 .insertOne({
                     socketId: socket.id,
-                    usuario: null
+                    email: null
                 })
                 .then((result: any) => console.log(result))
                 .catch((error: any) => console.log(error));
@@ -66,7 +66,6 @@ export default (mongo: any) => {
                         //VERIFICAR EMAIL
                     })
                     .catch((error: any) => console.log(error));
-                    
                 
                 usersList.push(payload)
                 // Retransmitir la variable payload  a todos los clientes conectados
@@ -77,17 +76,16 @@ export default (mongo: any) => {
             socket.on('disconnect', async (payload: any) => {
                 console.log(`Desconexión del cliente con ID: ${payload.email}`);
 
-                // Eliminar Socket Desconectado
                 await mongo.db.collection('sockets')
                     .remove({email: payload.email})
                     .then((result: any) => {
-                        console.log(result)
+                        //console.log(result)
                     })
                     .catch((error: any) => console.log(error));
 
                     
-                    //usersList.splice(payload)
-                    //io.emit('logout-user', usersList);
+                    //usersList.splice(payload.email);
+                    //io.emit('broadcast-message', usersList);
             });
         }
     }
