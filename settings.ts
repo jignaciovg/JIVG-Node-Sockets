@@ -8,5 +8,8 @@ export default {
         USER_NAME: '',
         USER_PASSWORD: '',
         DATABASE: 'dbsockets'
+    },
+    REPILCASET:{
+        mongodb:'dba-root:mongoadmin@localhost:27017,localhost:27018,localhost:27019/?replicaSet=mongodb-replicaset'
     }
 };

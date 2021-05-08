@@ -86,10 +86,8 @@ export default (mongo: any) => {
                     .catch((error: any) => console.log(error));
 
                     
-                    usersList.splice(payload.email)
-                    let index = usersList.findIndex(d => d.email === payload.email); //find index in your array
-                    usersList.splice(index, 1);
-                    io.emit('broadcast-message', usersList);
+                    //usersList.splice(payload)
+                    //io.emit('logout-user', usersList);
             });
         }
     }
